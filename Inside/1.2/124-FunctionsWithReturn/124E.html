@@ -17,14 +17,15 @@
         // console.log(createDiv('hei', 'blue', 'white'));
 
         function createDiv(text, foregroundColor, backgroundColor) {
-            let app = document.getElementById("").innerHTML;
-            if (foregroundColor.length != undefined && backgroundColor.length != undefined) {
-                return app += /*HTML*/`
-                <div style="background-color: ${backgroundColor}; color: ${foregroundColor}"></div>
+            if (foregroundColor != undefined && backgroundColor != undefined) {
+                console.log("hei");
+                document.getElementById("app").innerHTML += /*HTML*/`
+                <div style="background-color: ${backgroundColor}; color: ${foregroundColor}">${text}</div>
                 `;
             } else {
                 return app += /*HTML*/`<div>${text}</div>`;
             }
+            console.log(app.innerHTML);
         }
 
         function reset() {

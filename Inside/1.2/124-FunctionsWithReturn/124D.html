@@ -10,8 +10,8 @@
 <body>
     <div id="app">
         <input type="number" id="convertInput">
-        <button onclick='convertToTemperature(convertInput.value, "C2F")'>Convert from °C to °F</button>
-        <button onclick='convertToTemperature(convertInput.value, "F2C")'>Convert from °F to °C</button>
+        <button onclick='convertToTemperature(convertInput.valueAsNumber, "C2F")'>Convert from °C to °F</button>
+        <button onclick='convertToTemperature(convertInput.valueAsNumber, "F2C")'>Convert from °F to °C</button>
         <div id="result"></div>
     </div>
 
@@ -19,9 +19,9 @@
 
         function convertToTemperature(temperature, type) {
             if (type == "C2F") {
-                document.getElementById('result').innerHTML = 'Result: '+ (temperature * 9 / 5) + 32 + '°F';
+                document.getElementById('result').innerHTML = 'Result: '+ ((temperature * 9/5) + 32) + '°F';
             } else if (type == "F2C") {
-                document.getElementById('result').innerHTML = 'Result: '+ (temperature - 32) * 5 / 9 + '°C';
+                document.getElementById('result').innerHTML = 'Result: '+ ((temperature - 32) * 5/9) + '°C';
             }
         }
 
