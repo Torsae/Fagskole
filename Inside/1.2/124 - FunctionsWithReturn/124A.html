@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>124 A</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type='text' id="inputName" placeholder="Product name">
+        <input type='number' id="inputPrice" placeholder="Price per unit">
+        <input type='number' id="inputUnits" placeholder="Amount">
+        <button onclick='createOrderLine(inputName.value, inputPrice.value, inputUnits.value)'>Place order</button>
+    </div>
+
+    <script>
+        createOrderLine('Tastatur', 129, 3);
+        createOrderLine('Majones', 57, 4);
+
+        function createOrderLine(name, price, units) {
+            let total = price * units;
+            document.getElementById('app').innerHTML += /*HTML*/`
+            <div>
+                <div>Product name: ${name}</div>                
+                <div>Units ordered: ${units}</div>                
+                <div>Price per unit: ${price}</div>                
+                <div>Total cost: ${total}</div>                
+            </div><br/>
+            `;
+        }
+
+    </script>
+</body>
+
+</html>

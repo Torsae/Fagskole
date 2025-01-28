@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #board {
+            display: grid;
+            grid-template-columns: repeat(8, 100px);
+            grid-template-rows: repeat(8, 100px);
+        }
+
+        #board>div {
+            border: 1px solid lightblue;
+        }
+
+        .selected {
+            background-color: yellow;
+        }
+
+        #arrowGrid {
+            display: grid;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            grid-template-columns: repeat(3, 50px);
+            grid-template-rows: repeat(2, 50px);
+            row-gap: 1px;
+            column-gap: 1px;
+        }
+    </style>
+    <title>122 AB</title>
+</head>
+
+<body>
+    <div id="board"></div>
+    <div id="arrowGrid">
+        <div></div>
+        <button onclick='moveSquare(1)'>↑</button>
+        <div></div>
+        <button onclick='moveSquare(3)'>←</button>
+        <button onclick='moveSquare(2)'>↓</button>
+        <button onclick='moveSquare(4)'>→</button>
+    </div>
+    <input type='text' id="inputSize" placeholder="Type in size">
+    <button onclick='createBoard(inputSize.value)'>Submit</button>
+    <script>
+        let selectedSquareIndex = 0;
+        const invalidMoves = { Up: [], Down: [], Left: [], Right: [] }
+        let sqrt;
+
+        createBoard(6);
+
+        function showBoard() {
+            document.getElementById('board').innerHTML = '';            // resetter til blank
+
+            const part1 = selectedSquareIndex;                          // del 1: alle rutene som ikke er valgt før den valgte
+            addSquares(part1);
+
+            const part2 = '<div class="selected"></div>';               // del 2: den valgte ruten
+            document.getElementById('board').innerHTML += part2;
+
+            const part3 = (sqrt * sqrt) - (selectedSquareIndex + 1);    // del 3:  alle rutene som ikke er valgt etter den valgte
+            addSquares(part3);
+        }
+
+        function addSquares(squareCount) {
+            const pattern = '<div></div>';
+            const squares = ''.padEnd(pattern.length * squareCount, pattern);
+            document.getElementById('board').innerHTML += squares;
+        }
+
+        function createBoard(inputSize) {
+            reset();
+            if (isSquareBoard(inputSize)) {
+                sqrt = Number(inputSize);
+                createInvalidMoves();
+
+                document.getElementById("board").style.gridTemplateColumns = /*HTML*/`repeat(${sqrt}, 100px)`;  // matches CSS columns to new squares
+                document.getElementById("board").style.gridTemplateRows = /*HTML*/`repeat(${sqrt}, 100px)`;     // matches CSS rows to new squares
+
+                showBoard();
+            } else { console.log("invalid number") }
+        }
+
+        function createInvalidMoves() {
+            for (let i = 0; i < sqrt; i++) {
+                invalidMoves.Up.push(i)                             // gets all squares (i) on first row, then adds to invalid array
+                invalidMoves.Down.push((sqrt * sqrt) - 1 - i)       // gets last suqare on last row, subtracts i to get all invalid squares, adds to invalid array
+                invalidMoves.Left.push(sqrt * i)                    // sqrt * i to get square on column to the left, adds to invalid array
+                invalidMoves.Right.push(sqrt * (i + 1) - 1)         // sqrt * (i + 1) to get first sqare on row below, - 1 to go back to last square on previous row
+            }
+        }
+
+        function isSquareBoard(inputSize) {
+            return Number.isInteger(Math.sqrt(inputSize * inputSize))
+        }
+
+        function moveSquare(direction) {
+            console.log("Old SQI: ", selectedSquareIndex);
+            if (!canMove(direction)) {
+                console.log("Invalid Move.");
+            } else if (direction == 1) { // moves square 'up'
+                selectedSquareIndex -= sqrt;
+
+            } else if (direction == 2) { // moves square 'down'
+                selectedSquareIndex += sqrt;
+
+            } else if (direction == 3) { // moves square 'left'
+                selectedSquareIndex--;
+
+            } else if (direction == 4) { // moves square 'right'
+                selectedSquareIndex++;
+            }
+            console.log("New SQI: ", selectedSquareIndex);
+            showBoard();
+        }
+
+        function canMove(direction) {
+            if (invalidMoves.Up.includes(selectedSquareIndex) && direction == 1) {
+                return false;
+            } else if (invalidMoves.Down.includes(selectedSquareIndex) && direction == 2) {
+                return false;
+            } else if (invalidMoves.Left.includes(selectedSquareIndex) && direction == 3) {
+                return false;
+            } else if (invalidMoves.Right.includes(selectedSquareIndex) && direction == 4) {
+                return false;
+            } else { return true; }
+        }
+
+        function reset() {
+            selectedSquareIndex = 0;
+            invalidMoves.Up = [];
+            invalidMoves.Down = [];
+            invalidMoves.Left = [];
+            invalidMoves.Right = [];
+        }
+
+    </script>
+</body>
+
+</html>

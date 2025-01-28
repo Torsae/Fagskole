@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <!-- CSS Reference  -->
+
+    <style>
+        #board {
+            display: grid;
+            grid-template-columns: repeat(5, 100px);
+            grid-template-rows: repeat(5, 100px);
+            gap: 5px;
+        }
+
+        .cell {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+
+        .cell-0 {
+            background-color: #add8e6;
+        }
+
+        .cell-1 {
+            background-color: #8f8;
+        }
+
+        .cell-2 {
+            background-color: #f88;
+        }
+
+        .start {
+            background-color: #fc0;
+        }
+
+        .finish {
+            color: white;
+            background-color: rgb(0, 116, 146);
+        }
+    </style>
+    <title>121 C</title>
+</head>
+
+<body>
+    <div id="board"></div>
+
+    <script>
+
+        createTiles([
+            6, 7, 8, 9, 10,
+            5, "", "", "", 11,
+            4, 3, "", 13, 12,
+            "", 2, "", 14, "",
+            "Start", 1, "", 15, "Finish"
+        ])
+
+        function createTiles(array) {
+            array.map(function (element) {
+                let tileClass = getClass(element);
+                createCell(tileClass, element);
+            })
+        }
+
+        function createCell(tileClass, element) {
+            if (tileClass.length > 0) {
+                document.getElementById("board").innerHTML += /*HTML*/`
+                <div class="${tileClass}">${element}</div>
+                `;
+            } else {
+                document.getElementById("board").innerHTML += /*HTML*/`
+                <div>${element}</div>
+                `;
+            }
+        }
+
+        function getClass(element) {
+            if (typeof (element) == 'number') {
+                return "cell cell-" + (element % 3);
+            } else if (element.length > 0) {
+                return "cell " + element.toLowerCase();
+            } else { return ""; }
+        }
+
+    </script>
+</body>
+
+</html>

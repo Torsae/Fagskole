@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>124 H</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        showDateSelector();
+
+        function showDateSelector() {
+            document.getElementById('app').innerHTML =
+                createNumberSelector(13, 1, 31, 'Day')
+                + createNumberSelector(8, 1, 12, 'Month')
+                + createNumberSelector(2023, 2020, 2025, 'Year');
+        }
+
+        function createNumberSelector(displayedNumber, min, max, type) {
+            return /*HTML*/`
+            <div id="${type}Main" style="display: flex; align-items: center;">
+                <div id="${type}" style="font-size: 300%;">${displayedNumber}</div>
+                <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <button id="${type}IncreaseButton" onclick="select(1, ${min}, ${max}, ${displayedNumber}, '${type}')">▲</button>
+                <button id="${type}DecreaseButton" onclick="select(-1, ${min}, ${max}, ${displayedNumber}, '${type}')" >▼</button>
+                </div>
+            </div>
+            `;
+
+        }
+
+        function select(change, min, max, displayedNumber, type) {
+
+            if (isValidDate(displayedNumber, change, min, max)) {
+                displayedNumber += change;
+            };
+
+            document.getElementById(type + 'Main').outerHTML =
+                createNumberSelector(displayedNumber, min, max, type);
+            disableButtons(min, max, displayedNumber, type);
+        }
+
+        function isValidDate(date, change, min, max) {
+            return (date + change) >= min && (date + change) <= max ? true : false;
+        }
+        
+        function disableButtons(min, max, displayedNumber, type) {
+            if ((displayedNumber) <= min) {
+                document.getElementById(type + "DecreaseButton").disabled = true;
+            } else if ((displayedNumber) >= max) {
+                document.getElementById(type + "IncreaseButton").disabled = true;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #board {
+            display: grid;
+            grid-template-columns: repeat(8, 100px);
+            grid-template-rows: repeat(8, 100px);
+        }
+
+        #board>div {
+            border: 1px solid lightblue;
+        }
+
+        .selected {
+            background-color: yellow;
+        }
+
+        #arrowGrid {
+            display: grid;
+            grid-template-columns: repeat(3, 50px);
+            grid-template-rows: repeat(2, 50px);
+            row-gap: 1px;
+            column-gap: 1px;
+        }
+    </style>
+    <title>122 AB-Test</title>
+</head>
+
+<body>
+    <div id="board"></div>
+    <div id="arrowGrid">
+        <div></div>
+        <button onclick='moveSquare(1)'>↑</button>
+        <div></div>
+        <button onclick='moveSquare(3)'>←</button>
+        <button onclick='moveSquare(2)'>↓</button>
+        <button onclick='moveSquare(4)'>→</button>
+    </div>
+    <script>
+        let selectedSquareIndex = 7;
+        let boardRow = 0;
+        let boardColumn = 0;
+        let invalidMovesLeft = [0, 8, 16, 24, 32, 40, 48, 56];
+        let invalidMovesRight = [7, 15, 23, 31, 39, 47, 55, 63];
+        const size = 64;
+
+        showBoard();
+
+        function showBoard() {
+            // del 1: alle rutene som ikke er valgt før den valgte
+            const lengthPart1 = selectedSquareIndex;
+            const pattern = '<div></div>';
+            const part1 = ''.padEnd(pattern.length * lengthPart1, pattern);
+            document.getElementById('board').innerHTML = part1;
+
+            // del 2: den valgte ruten
+            const part2 = '<div class="selected"></div>';
+            document.getElementById('board').innerHTML += part2;
+
+            // del 3  alle rutene som ikke er valgt etter den valgte
+            const lengthPart3 = size - (selectedSquareIndex + 1);
+            const part3 = ''.padEnd(pattern.length * lengthPart3, pattern);
+            document.getElementById('board').innerHTML += part3;
+        }
+
+        function createBoard(inputColumn, inputRow) {
+            if (isValidBoard(inputColumn, inputRow)) {
+                boardColumn = inputColumn;
+                boardRow = inputRow
+            } else { console.log("invalid number") }
+            createInvalidMoves();
+        }
+
+        function createInvalidMoves() {
+            let sqrt = Math.sqrt(boardColumn + boardRow);
+            for (let i = 0; i < sqrt.value; i++) {
+                invalidMovesUp.push(i)
+                invalidMovesDown.push((sqrt * sqrt) - 1 - i) // gets last row, then adds i to get invalid square id
+                invalidMovesLeft.push(sqrt * i) // +1 to get square on column to the left
+                invalidMovesRight.push(sqrt * (i + 1) - 1) // sqrt-1 to get square to the right, i + 1 to avoid making square 0 invalid
+            }
+        }
+
+        function isValidBoard() {
+            return Number.isInteger(Math.sqrt(boardColumn + boardRow))
+        }
+
+        function moveSquare(direction) {
+            console.log("Old SQI:", selectedSquareIndex);
+            if (!canMove(direction)) {
+                console.log("Invalid Move.");
+
+            } else if (direction == 1) { // moves square 'up'
+                selectedSquareIndex -= 8;
+
+            } else if (direction == 2) { // moves square 'down'
+                selectedSquareIndex += 8;
+
+            } else if (direction == 3) { // moves square 'left'
+                selectedSquareIndex--;
+
+            } else if (direction == 4) { // moves square 'right'
+                selectedSquareIndex++;
+            }
+            console.log("New SQI:", selectedSquareIndex);
+            console.log("");
+            showBoard();
+        }
+
+        function canMove(direction) {
+            const invalidMovesLeft = [0, 8, 16, 24, 32, 40, 48, 56];
+            const invalidMovesRight = [7, 15, 23, 31, 39, 47, 55, 63];
+
+            if (selectedSquareIndex >= 0 && selectedSquareIndex <= 7 && direction == 1) { // canMove 'up'
+                return false;
+            } else if (selectedSquareIndex >= 56 && selectedSquareIndex <= 63 && direction == 2) { // canMove 'down'
+                return false;
+            } else if (invalidMovesLeft.includes(selectedSquareIndex) && direction == 3) { // canMove 'left'
+                return false;
+            } else if (invalidMovesRight.includes(selectedSquareIndex) && direction == 4) { // canMove 'right'
+                return false;
+            } else { return true; }
+        }
+
+    </script>
+</body>
+
+</html>

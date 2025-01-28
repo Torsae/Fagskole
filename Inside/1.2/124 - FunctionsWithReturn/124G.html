@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>124 G</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <!-- <div id="DayMain" style="display: flex;align-items: center;">
+        <div id="Day" style="font-size: 300%;">1</div>
+        <div style="display: flex; flex-direction: column;align-items: flex-start;">
+            <button onclick="selectDay(2)">▲</button>
+            <button onclick="selectDay(0)" disabled>▼</button>
+        </div>
+    </div> -->
+
+    <script>
+        createNumberSelector(5, 0, 10, "Day");
+
+        function createNumberSelector(displayedNumber, minValue, maxValue, type) {
+            return document.getElementById("app").innerHTML = /*HTML*/`
+            <div id="${type}Main" style="display: flex; align-items: center;">
+                <div id="${type}" style="font-size: 300%;">${displayedNumber}</div>
+                <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                <button id="increaseButton" onclick="select${type}('1', ${type}.innerHTML, ${minValue}, ${maxValue})">▲</button>
+                <button id="decreaseButton" onclick="select${type}('-1',${type}.innerHTML, ${minValue}, ${maxValue})" >▼</button>
+                </div>
+            </div>
+            `;
+
+        }
+
+        function selectDay(change, currentDay, minValue, maxValue, id) {
+            console.log("change: ", parseInt(change),"day: ", parseInt(currentDay));
+            let newDay = parseInt(currentDay) + parseInt(change);
+            document.getElementById("Day").innerHTML = newDay;
+            if (newDay <= minValue) {
+                toggleButtons("decreaseButton", true);
+            } else if (newDay > minValue) {
+                toggleButtons("decreaseButton", false);
+            }
+            if (newDay >= maxValue) {
+                toggleButtons("increaseButton", true);
+            } else if (newDay < maxValue) {
+                toggleButtons("increaseButton", false);
+            }
+            console.log("Select Day");
+        }
+
+        function toggleButtons(id, change) {
+            console.log("Toggle buttons: ", id, "disabled: ", change);
+            document.getElementById(id).disabled = change;
+        }
+
+        // function selectMonth() {
+        //     console.log("Select Month");
+        // }
+
+        // function selectYear() {
+        //     console.log("Select Year");
+        // }
+        
+
+        // Oppgave 124 G
+        // Du skal lage din egen dato-velger, men vi forenkler veldig; alle måneder har 31 dager!
+        // I første steg skal vi lage en funksjon som lager HTML som kan brukes til å velge et tall.
+        
+        // Lag en funksjon createNumberSelector som returnerer denne HTML-koden.
+        // Funksjonen skal ta følgende parametre:
+        // 1: Hvilket tall som skal vises
+        // 2: Minimum - det vil si det laveste lovlige tallet (eks 1 for måned)
+        // 3: Maximum - det vil si det høyeste lovlige tallet (eks 12 for måned)
+        // 4: Navnet på hva dette er, f.eks. Day i eksemplet over.
+        // Denne teksten brukes både som id på div-en med selve tallet, hoved-div-en (i tillegg til ordet Main) - og som del av funksjonen som skal kalles fra onclick på begge knappene.
+        // Hvis teksten er Day, skal funksjonen hete selectDay, hvis den er Year, skal funksjonen hete selectYear.
+
+        // Dersom opp- eller ned-knappen ville valgt et ugyldig tall (over max eller under min), så skal den knappen være disabled.
+    </script>
+</body>
+
+</html>

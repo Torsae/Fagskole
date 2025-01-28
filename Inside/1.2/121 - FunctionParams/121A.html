@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content="width=device-width, initial-scale=1.0">
+  <title>121 A</title>
+</head>
+
+<body>
+  <!-- HTML -->
+  <button onclick="addFromInput(Number(inputX.value), Number(inputY.value),'circle', 'keyBypass')">Generate
+    circle</button>
+  <button onclick="addFromInput(Number(inputX.value), Number(inputY.value),'rectangle', 'keyBypass')">Generate
+    rectangle</button>
+  <input type="number" id="inputX" style="width: 75px;" placeholder="X"
+    onkeydown="addFromInput(Number(inputX.value), Number(inputY.value), '0', event)">
+  <input type="number" id="inputY" style="width: 75px;" placeholder="Y"
+    onkeydown="addFromInput(Number(inputX.value), Number(inputY.value), '0', event)">
+
+  <select name='Background colors' id="stroke" onchange="changeColor(this, 'keyBypass')">
+    <option value="0">--Change Background--</option>
+    <option value="red">Red</option>
+    <option value="green">Green</option>
+    <option value="blue">Blue</option>
+    <option value="gray">Gray</option>
+  </select>
+
+  <input type="text" id="inputStroke" onkeydown="changeColor(this, event)" style="width: 130px;"
+    placeholder="Custom background">
+
+  <select name='Foreground colors' id="fill" onchange="changeColor(this, 'keyBypass')">
+    <option value="0">--Change Foreground--</option>
+    <option value="red">Red</option>
+    <option value="green">Green</option>
+    <option value="blue">Blue</option>
+    <option value="gray">Gray</option>
+  </select>
+
+  <input type="text" id="inputFill" onkeydown="changeColor(this, event)" style="width: 130px;"
+    placeholder="Custom foreground">
+
+  <br />
+  <svg id="mySvg" width="800" height="600" style="background-color: lightgray;">
+  </svg>
+
+  <!-- JavaScript Source -->
+  <script>
+    let currentX = 0;
+    let currentY = 0;
+    let currentStroke = "green";
+    let currentFill = "yellow";
+    let currentShape;
+
+    function addCircle() {
+      currentShape = "circle";
+      document.getElementById('mySvg').innerHTML = /*HTML*/`
+      <circle cx="${currentX}" cy="${currentY}" r="40" stroke="${currentStroke}" stroke-width="4" fill="${currentFill}" />            
+      `;
+    }
+
+    function addRectangle() {
+      currentShape = "rectangle";
+      document.getElementById('mySvg').innerHTML = /*HTML*/`
+      <rect x="${currentX}" y="${currentY}" height="50" width="100" stroke="${currentStroke}" stroke-width="4" fill="${currentFill}" />            
+      `;
+    }
+
+    function addFromInput(inputX, inputY, shape, e) {
+      if (!handle(e)) { return }
+      if (shape == "0") { shape = currentShape }
+      currentX = inputX;
+      currentY = inputY;
+      if (shape == "circle") { addCircle() }
+      else if (shape == "rectangle") { addRectangle() }
+    }
+
+    function changeColor(input, e) {
+      if (!handle(e)) { return }
+      if ((input.id == "stroke" || input.id == "inputStroke") && input.value != "0") {
+        currentStroke = input.value;
+        addFromInput(currentX, currentY, currentShape, 'keyBypass');
+        reset(input);
+      } else if ((input.id == "fill" || input.id == "inputFill") && input.value != "0") {
+        currentFill = input.value;
+        addFromInput(currentX, currentY, currentShape, 'keyBypass');
+        reset(input);
+      } else {
+        console.log("Error: Not a valid color")
+      }
+    }
+
+    function handle(e) {
+      if (e.keyCode === 13 || e === "keyBypass") {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    function reset(input) {
+      document.getElementById(input.id).value = '';
+      document.getElementById(input.id).focus();
+    }
+  </script>
+</body>
+
+</html>
+
+<!-- 
+Oppgave 121 A  
+SVG. Det finnes egne tagger for å lage vektorgrafikk på en nettside.
+Det er nyttig å kunne litt om, men er i seg selv ikke pensum.
+Men vi kan bruke det som case for å øve på funksjoner med parametre.
+
+Test ut HTML-koden under. Åpne i nettleser og trykk på knappen!
+
+<button onclick="addCircle()">Legg til sirkel</button>
+<br/>
+<svg 
+  id="mySvg"
+  width="800" 
+  height="600" 
+  style="background-color: lightgray;">
+</svg>
+<script>
+  function addCircle() {
+      document.getElementById('mySvg').innerHTML = /*HTML*/`
+          <circle cx="50" cy="100" r="40" stroke="green" stroke-width="4" fill="yellow" />            
+      `;
+  }
+</script>
+
+- Endre funksjonen addCircle() slik at den tar en parameter x. Sørg for at verdien av x brukes istedenfor tallet 50 i taggen <circle>.
+  Endre knappen så den sender med 30 som parameterverdi + lag en knapp til som sender med 70 som parameter-verdi
+- Lag en <input type="number"/>. Gå tilbake til å ha bare én knapp.
+  Denne knappen skal kalle en funksjon addCircleFromInput().
+  Denne funksjonen skal lese ut tallet av inputen og så kalle addCircle() med dette tallet.
+- Gjør det samme for y, altså lag en input for y-verdi.
+- Gjør det samme for bakgrunnsfarge, men bruk da <input type="text"/>
+- Bytt ut <input type="text"/> med en <select>.
+  Finn ut hvordan den virker, så brukeren kan velge blant en liste med noen forskjellige farger
+  (feks red, green, blue, gray)
+- Gjør det samme for forgrunnsfarge
+- Lag en ny knapp som skal lage en firkant istedenfor en sirkel. Se informasjon om SVG rektangel her: www.w3schools.com/graphics/svg_rect.asp
+- Rektangel-taggen heter <rect. Mens <circle har cx, cy og r, har <rect x, y, width og height. fill og stroke virker på samme måte for begge tagggene.
+-->

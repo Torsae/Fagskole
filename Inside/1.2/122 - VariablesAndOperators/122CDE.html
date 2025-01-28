@@ -1,0 +1,79 @@
+<!-- index.html  -->
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <!-- CSS Reference  -->
+    <link rel='stylesheet' href='style.css' />
+    <style>
+        #buttons {
+            display: grid;
+            gap: 2px;
+            min-width: 40px;
+            max-width: 40px;
+            min-height: 75px;
+            max-height: 75px;
+        }
+    </style>
+    <title>122 C</title>
+</head>
+
+<body>
+    <button onclick='changeBackgroundColor("red", 5)'>Red + 5</button>          <!-- 122 D -->
+    <button onclick='changeBackgroundColor("red", -5)'>Red - 5</button>         <!-- 122 D -->
+    <button onclick='changeBackgroundColor("green", 5)'>green + 5</button>      <!-- 122 D -->
+    <button onclick='changeBackgroundColor("green", -5)'>green - 5</button>     <!-- 122 D -->
+    <button onclick='changeBackgroundColor("blue", 5)'>blue + 5</button>        <!-- 122 D -->
+    <button onclick='changeBackgroundColor("blue", -5)'>blue - 5</button>       <!-- 122 D -->
+
+    <div id="buttons">                                      <!-- 122 C -->
+        <button onclick='changeFontSize(1)'>↑</button>      <!-- 122 C -->
+        <button onclick='changeFontSize(-1)'>↓</button>     <!-- 122 C -->
+    </div>                                                  <!-- 122 C -->
+
+    <select onchange="selectFontFamily(this.value)">                            <!-- 122 D -->
+        <option>Arial</option>                                                  <!-- 122 D -->
+        <option>Verdana</option>                                                <!-- 122 D -->
+        <option>Tahoma</option>                                                 <!-- 122 D -->
+        <option>Trebuchet MS</option>                                           <!-- 122 D -->
+        <option>Times New Roman</option>                                        <!-- 122 D -->
+        <option>Georgia</option>                                                <!-- 122 D -->
+        <option>Garamond</option>                                               <!-- 122 D -->
+        <option>Courier New</option>                                            <!-- 122 D -->
+        <option>Brush Script MT</option>                                        <!-- 122 D -->
+    </select>                                                                   <!-- 122 D -->
+
+    <div id="text">Change font size</div>       <!-- 122 C -->
+
+    <script>
+        let currentFontSize = 0;                // 122 C
+        let redValue = 125;         // 122 E
+        let greenValue = 125;       // 122 E
+        let blueValue = 125;        // 122 E
+
+        changeFontSize(20);
+        function changeFontSize(inputChange) {                                          // 122 C
+            currentFontSize += inputChange;                                             // 122 C
+            document.getElementById('text').style.fontSize = `${currentFontSize}pt`;    // 122 C
+        }                                                                               // 122 C
+
+        function selectFontFamily(fontFamily) {                                 // 122 D
+            document.getElementById('text').style.fontFamily = fontFamily;      // 122 D
+        }
+
+        function changeBackgroundColor(type, value) {                                                                   // 122 E
+            if (type == "red") {                                                                                        // 122 E
+                redValue += value;                                                                                      // 122 E
+            } else if (type == "green") {                                                                               // 122 E
+                blueValue += value;                                                                                     // 122 E
+            } else if (type == "blue") {                                                                                // 122 E
+                greenValue += value;                                                                                    // 122 E
+            }                                                                                                           // 122 E
+            document.getElementById('text').style.backgroundColor = `rgb(${redValue},${greenValue},${blueValue})`;      // 122 E
+        }
+    </script>
+</body>
+
+</html>

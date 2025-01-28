@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>124 E</title>
+</head>
+
+<body>
+
+    <button onclick='createGrid(3, 2, createDiv("Kol 1 rad 1") + 
+    createDiv("Kol 2 rad 1") +
+    createDiv("Kol 3 rad 1") + 
+    createDiv("Kol 1 rad 2") + 
+    createDiv("Kol 2 rad 2") + 
+    createDiv("Kol 3 rad 2"))'>Create grid</button>
+
+    <button onclick='createGrid(3, 2, createDiv("Kol 1 rad 1", "black","#cfc1be") + 
+    createDiv("Kol 2 rad 1", "yellow","gray") +
+    createDiv("Kol 3 rad 1", "blue", "#a98383") + 
+    createDiv("Kol 1 rad 2", "red", "darkgreen") + 
+    createDiv("Kol 2 rad 2", "white", "red") + 
+    createDiv("Kol 3 rad 2", "cyan", "darkblue"))'>Create grid with colours</button>
+
+    <button onclick='reset()'>Clear divs</button>
+    <div id="app"></div>
+
+    <script>
+
+        function createDiv(text, foregroundColor, backgroundColor) {
+            if (foregroundColor != undefined && backgroundColor != undefined) {
+                return /*HTML*/`
+                <div style="background-color: ${backgroundColor}; color: ${foregroundColor}">${text}</div>
+                `;
+            } else {
+                return /*HTML*/`<div>${text}</div>`;
+            }
+        }
+
+        function createGrid(columnCount, rowCount, innerHTML) {
+            document.getElementById("app").innerHTML += /*HTML*/`
+            <div style="display: grid; grid-template-columns: repeat(${columnCount}, auto); grid-template-rows: repeat(${rowCount}, auto)">
+                ${innerHTML}
+            </div>
+            `;
+        }
+
+        function reset() {
+            document.getElementById("app").innerHTML = "";
+        }
+
+        // function createDiv(text, foregroundColor, backgroundColor) {
+        //     if (foregroundColor != undefined || foregroundColor != undefined) {
+        //         let colors = /*HTML*/`style="`;
+        //         if (foregroundColor != undefined) {
+        //             colors += /*HTML*/`color: ${foregroundColor};`;
+        //         }
+        //         if (backgroundColor != undefined) {
+        //             colors += /*HTML*/`background-color: ${backgroundColor};`;
+        //         }
+        //         return /*HTML*/`<div ${colors}">${text}</div>`;
+        //     }
+        // }
+    </script>
+</body>
+
+</html>

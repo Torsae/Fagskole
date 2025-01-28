@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
+    </style>
+    <title>121 B</title>
+</head>
+
+<body>
+    <!-- HTML -->
+    <div id='root'>
+        <input type="number" id="inputDay" style="width: 100px;" placeholder="Day"
+            onkeydown="createTable(Number(inputDay.value), Number(inputHours.value), Number(inputMinutes.value), Number(inputTemperature.value), event)">
+        <input type="number" id="inputHours" style="width: 100px;" placeholder="Hours"
+            onkeydown="createTable(Number(inputDay.value), Number(inputHours.value), Number(inputMinutes.value), Number(inputTemperature.value), event)">
+        <input type="number" id="inputMinutes" style="width: 100px;" placeholder="Minutes"
+            onkeydown="createTable(Number(inputDay.value), Number(inputHours.value), Number(inputMinutes.value), Number(inputTemperature.value), event)">
+        <input type="number" id="inputTemperature" style="width: 100px;" placeholder="Temperature"
+            onkeydown="createTable(Number(inputDay.value), Number(inputHours.value), Number(inputMinutes.value), Number(inputTemperature.value), event)">
+        <button
+            onclick="createTable(Number(inputDay.value), Number(inputHours.value), Number(inputMinutes.value), Number(inputTemperature.value), 'keyBypass')">Generate
+            Table</button>
+        <button onclick="createDayOne()">Generate
+            Day One</button>
+        <table id="tables">
+            <tr>
+                <th>Dag</th>
+                <th>Time</th>
+                <th>Minutt</th>
+                <th>Temperatur</th>
+            </tr>
+        </table>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let dayOneDone = false;
+        function createTable(Day, Hours, Minutes, Temperature, e) {
+            if (handle(e)) {
+
+                document.getElementById("tables").innerHTML += /*HTML*/`      
+                <tr>
+                    <td>${Day}</td>
+                    <td>${Hours}</td>
+                    <td>${Minutes}</td>
+                    <td>${Temperature}</td>
+                </tr>
+                `;
+            }
+        }
+
+        function createDayOne() {
+            if (dayOneDone === false) {
+
+                createTable(1, 10, 0, 5, 'keyBypass');
+                createTable(1, 10, 15, 6, 'keyBypass');
+                createTable(1, 10, 30, 7, 'keyBypass');
+                dayOneDone = true;
+            }
+        }
+
+        function handle(e) {
+            if (e.keyCode === 13 || e === "keyBypass") {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    </script>
+</body>
+
+</html>
+<!-- 
+Oppgave 121 B  
+Test ut HTML-en under, dvs. lag en HTML fil med riktig innhold og åpne i nettleseren.
+Endre så til at det er en JavaScript-funksjon som setter denne HTML-en.
+Og så skal du forbedre koden så godt du kan ved å refactorere ved å dele opp i funksjoner og bruke parametre.
+
+Eksemplet er en tabell i HTML. Hint: sett id på table-taggen (feks id="myTable") og lag en funksjon som legger til en rad i denne tabellen,
+for eksempel document.getElementById('myTable).innerHTML += ... (merk += istedenfor + legger til istedenfor å bytte ut).
+Denne funksjonen kan så ta fem parmetre, tagg til cellene (typisk td eller th) + innhold til hver av de fire kolonnene.
+
+<table>
+    <tr>
+        <th>Dag</th>
+        <th>Time</th>
+        <th>Minutt</th>
+        <th>Temperatur</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>10</td>
+        <td>0</td>
+        <td>5</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>10</td>
+        <td>15</td>
+        <td>6</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>10</td>
+        <td>30</td>
+        <td>7</td>
+    </tr>
+</table>
+-->
