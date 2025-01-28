@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>128 A</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        let perClick = 1;
+        let points = 0;
+
+        updateView();
+        function updateView() {
+            document.getElementById("app").innerHTML = /*HTML*/`
+            <div class="points">Current points: ${points}</div>
+            <button onclick='clicker()'>Click</button>
+            <button onclick='upgrade()'>Upgrade (10 points)</button>
+            `;
+        }
+
+        function clicker() {
+            points += perClick;
+            updateView();
+        }
+
+        function upgrade() {
+            if (points >= 10) {
+                points -= 10;
+                perClick++;
+            } else { console.log("Not enough points"); }
+            updateView();
+        }
+    </script>
+</body>
+
+</html>

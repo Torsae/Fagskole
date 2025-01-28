@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>128 B</title>
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        let secretNumber = getRandomNumber(1, 100);
+
+        updateView("Guess a number");
+        function updateView(result) {
+            document.getElementById("app").innerHTML = /*HTML*/`
+            <div>${result}</div>
+            <input type='number' id='inputField' onchange="guessNumber(this.value);">
+            <button onclick='secretNumber = getRandomNumber(1, 100)'>Get new number</button>
+            `;
+            // focuses on input after onchange so you don't have to click it with your mouse every time
+            document.getElementById("inputField").focus();
+        }
+
+        function guessNumber(guess) {
+            if (guess == secretNumber) {
+                updateView("Correct!");
+            } else if (guess < secretNumber) {
+                updateView("Go higher!");
+            } else if (guess > secretNumber) {
+                updateView("Go lower!");
+            } else { console.log("Error"); }
+        }
+
+        function getRandomNumber(min, max) {
+            updateView("Guess a number");
+            return min + Math.floor(Math.random() * (max - min + 1));
+        }
+    </script>
+</body>
+
+</html>
