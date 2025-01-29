@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>128 E</title>
+    <style>
+        button {
+            background-color: gray;
+            width: 100px;
+            height: 100px;
+        }
+
+        button.selected {
+            background-color: yellow;
+        }
+
+        #app {
+            display: grid;
+            grid-template-columns: 102px 102px;
+            grid-template-rows: 102px 102px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        let startTime = 0;
+        let reactionTime = 0;
+        play();
+
+        function play() {
+            let selectedIndex = getRandomNumber();
+            getBoard(selectedIndex);
+            startTime = Date.now();
+        }
+
+        function getBoard(selectedIndex) {
+            document.getElementById("app").innerHTML = /*HTML*/`
+            <button id="0"></button>
+            <button id="1"></button>
+            <button id="2"></button>
+            <button id="3"></button>
+            <div>Reaction time:</div>
+            <div>${reactionTime}ms</div>
+            `;
+            document.getElementById(selectedIndex).outerHTML = /*HTML*/`
+            <button id="${selectedIndex}" class ="selected" onclick='endGame(this.id)'></button>
+            `;
+        }
+
+        function endGame(selectedIndex) {
+            //getReactionTime();
+            reactionTime = (Date.now() - startTime);
+            document.getElementById(selectedIndex).outerHTML = /*HTML*/`
+            <button id="${selectedIndex}"></button>
+            `;
+            setTimeout(function () { play(); }, 1000);
+        }
+
+        function getReactionTime() {
+            reactionTime = (Date.now() - startTime);
+                        
+        }
+
+        function getRandomNumber(selectedIndex) {
+            return Math.floor(Math.random() * 4);
+        }
+
+    </script>
+</body>
+
+</html>

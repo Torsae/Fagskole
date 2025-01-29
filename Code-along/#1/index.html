@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>code-along #1</title>
+
+    <style>
+        .dayList{
+            background-color: rgb(180, 250, 200);
+            border: 1px, solid, gray;
+            padding-left: 5px;
+        }
+        .toDoElement {
+            background-color: white;
+            padding: 5px;
+            margin-left: -6px;
+            margin-bottom: -1px;
+            margin-right: -1px;
+            border: 1px, solid, gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        let idsAdded = 4;
+
+        updateView();
+        addToDo();
+        function updateView() {
+            document.getElementById("app").innerHTML = /*HTML*/`
+            <input id="toDoInput" type='text'><br/>
+            <button onclick='addElement("monday", toDoInput.value)'>Add to Monday</button>
+            <button onclick='addElement("tuesday", toDoInput.value)'>Add to Tuesday</button>
+            <button onclick='addElement("wednesday", toDoInput.value)'>Add to Wednesday</button><br/>
+            TO DO LIST:
+            <div class="dayList" id="monday">Monday:<br/></div><br/>
+            <div class="dayList" id="tuesday">Tuesday:<br/></div><br/>
+            <div class="dayList" id="wednesday">Wednesday<br/></div><br/>
+            `;
+        }
+
+        function addToDo() {
+            document.getElementById("monday").innerHTML += /*HTML*/`
+            <li id="0" onclick="removeElement(this.id)" class="toDoElement">Clean bathroom</li>
+            <li id="1" onclick="removeElement(this.id)" class="toDoElement">Hoover livingroom</li>
+            <li id="2" onclick="removeElement(this.id)" class="toDoElement">Buy bread</li>
+            <li id="3" onclick="removeElement(this.id)" class="toDoElement">Take the dog for a walk</li>
+            `;
+        }
+
+        function removeElement(id) {
+            document.getElementById(id).outerHTML = "";
+        }
+
+        function addElement(day, text) {
+            if (!text == "") {
+                document.getElementById(day).innerHTML += /*HTML*/`
+                <li id="${idsAdded}" onclick="removeElement(this.id)" class="toDoElement">${text}</li>
+                `;
+                idsAdded++;
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>
