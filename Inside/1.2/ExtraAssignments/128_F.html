@@ -35,7 +35,7 @@
         function play() {
             let selectedIndex = getRandomNumber();
             getBoard(selectedIndex);
-            startTime = new Date().getTime;                                 // 128F: ADDED REACTION TIME
+            startTime = Date.now();                                 // 128F: ADDED REACTION TIME
         }
 
         function getBoard(selectedIndex) {
@@ -53,7 +53,8 @@
         }
 
         function endGame(selectedIndex) {
-            reactionTime = (new Date().getTime - startTime);                // 128F: ADDED REACTION TIME
+            reactionTime = (Date.now() - startTime);                // 128F: ADDED REACTION TIME
+            console.log(startTime, reactionTime);
             document.getElementById(selectedIndex).outerHTML = /*HTML*/`
             <button id="${selectedIndex}" disabled></button>
             `;
