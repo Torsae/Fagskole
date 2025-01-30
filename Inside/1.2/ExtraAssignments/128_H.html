@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>128 H</title>
+    <style>
+        #app {
+            background-color: gray;
+            height: fit-content;
+            width: fit-content;
+            padding: 10px;
+        }
+
+        ::placeholder {
+            color: black;
+        }
+
+        #calcNumbers {
+            display: grid;
+            grid-template-columns: repeat(4, 80px);
+            grid-template-rows: 52px;
+        }
+
+        input {
+            width: 230px;
+            height: 44px;
+            margin-left: 1px;
+            margin-bottom: 2px;
+            font-size: x-large;
+            text-align: right;
+            grid-column: 1/4;
+        }
+
+        button {
+            margin: 1px;
+            height: 50px;
+            font-size: large;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        let previousNumber = "";
+        showCalculator();
+        function showCalculator() {
+            document.getElementById("app").innerHTML = /*HTML*/`
+            <input type='text' id='input'>
+            <button onclick='(input.value="", previousNumber="")' style='width: 78px; height: 50px; padding-top: 5px; margin-left: -2px'>C</button>
+                <div id="calcNumbers">
+                    ${getButtonsHTML([7, 8, 9, "/ "])}
+                    ${getButtonsHTML([4, 5, 6, "*"])}
+                    ${getButtonsHTML([1, 2, 3, "-"])}
+                    ${getButtonsHTML([0, ".", "=", "+"])}
+                </div>
+            `;
+        }
+
+        function getButtonsHTML(array) {
+            let button = "";
+            array.forEach(element => {
+                button += /*HTML*/`
+                <button value='${element}' onclick='${getOnClick(element)}'>${element}</button>
+                `;
+            });
+            return button;
+        }
+
+        function getOnClick(input) {
+            if (input === "=") {
+                return /*HTML*/`calculate(input.value)`;
+            } else if (isNaN(input) && input != ".") {
+                return /*HTML*/`saveNumber(input.value, this.value)`;
+            } else {
+                return /*HTML*/`(input.value += this.value)`;
+            }
+        }
+
+        function saveNumber(input, newInput) {
+            if (input !== "") {
+                previousNumber = /*HTML*/`${input} ${newInput}`;
+                console.log(newInput);
+                document.getElementById("input").value = "";
+            } else {
+                document.getElementById("input").value = newInput;
+            }
+        }
+
+        function calculate(input) {
+            console.log(previousNumber,input);
+            let result = Number(parseFloat(
+                eval?.(`"use strict";(${previousNumber+=input})`) // calculates input
+            ).toFixed(3));                         // limits decimals to 3
+            document.getElementById("input").value = result;
+            previousNumber = "";
+        }
+
+    </script>
+</body>
+
+</html>
