@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        div {
+            font-size: 300%;
+            user-select: none;
+        }
+
+        .hasCheated {
+            font-size: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        // model
+        let points = 0;
+        let pointsPerClick = 1;
+        let smileyIndex = 0;
+        let hasCheated = ""; // 1.41_B hasCheated
+        let cheatIndex = 0; // 1.41_B styling
+
+        // view
+        updateView();
+        function updateView() {
+            let smiley = smileyIndex == 0 ? '😀' : '😁';
+            let cheatColor = cheatIndex == 0 ? 'red' : 'blue'; // 1.41_B styling
+            document.getElementById('app').innerHTML = /*HTML*/`
+                <div id="image" onclick="doClick()">${smiley}</div>
+                <div id="pointsInfo">${points}</div>
+                <button onclick="buyUpgrade()">Kjøp oppgradering (10 poeng)</button>
+                <button onclick="activateCheat()">Activate Cheat</button>
+                <!--1.41_B show if user has cheated-->
+                <div class="hasCheated" style="color: ${cheatColor}">${hasCheated}</div> 
+            `;
+        }
+        
+        // controller
+        function doClick() {
+            points += pointsPerClick;
+            smileyIndex = 1 - smileyIndex;
+            cheatIndex = 1 - cheatIndex; // 1.41_B styling
+            updateView();
+        }
+
+        function buyUpgrade() {
+            if (points < 10) return;
+            points -= 10;
+            pointsPerClick++;
+            updateView();
+        }
+
+        // 1.41_A (Make cheat button that multiplies points and points perClick by 10)
+        function activateCheat() {
+            points = points * 10;
+            pointsPerClick = pointsPerClick * 10;
+            hasCheated = "You have used cheats! ew.." // 1.41_B (show "You have cheated.")
+            updateView();
+        }
+
+    </script>
+</body>
+
+</html>

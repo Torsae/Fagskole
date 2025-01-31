@@ -4,7 +4,6 @@
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content="width=device-width, initial-scale=1.0">
-    <!-- CSS -->
     <style>
         table {
             border-collapse: collapse;
@@ -29,7 +28,6 @@
 </head>
 
 <body>
-    <!-- HTML -->
     <div id='root'>
         <input type="number" id="inputDay" style="width: 100px;" placeholder="Day"
             onkeydown="createTable(Number(inputDay.value), Number(inputHours.value), Number(inputMinutes.value), Number(inputTemperature.value), event)">
@@ -54,12 +52,10 @@
         </table>
     </div>
 
-    <!-- JavaScript -->
     <script>
         let dayOneDone = false;
         function createTable(Day, Hours, Minutes, Temperature, e) {
             if (handle(e)) {
-
                 document.getElementById("tables").innerHTML += /*HTML*/`      
                 <tr>
                     <td>${Day}</td>
@@ -73,7 +69,6 @@
 
         function createDayOne() {
             if (dayOneDone === false) {
-
                 createTable(1, 10, 0, 5, 'keyBypass');
                 createTable(1, 10, 15, 6, 'keyBypass');
                 createTable(1, 10, 30, 7, 'keyBypass');

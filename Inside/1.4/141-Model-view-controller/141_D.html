@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <!-- CSS  -->
+    <title>141_D</title>
+    <style>
+        :disabled {
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HTML -->
+    <div id='app'></div>
+
+    <!-- JavaScript -->
+    <script>
+        // Model
+        let inputName = "";
+        let inputEmail = "";
+
+        // View
+        updateView("edit");
+        function updateView(page) {
+            document.getElementById("app").innerHTML = getViewHTML(page);
+        }
+
+        // Controller
+        function getViewHTML(page) {
+            if (page === "edit") {
+                return /*HTML*/`
+                <div>Name:</div>
+                <input type='text' onchange='(inputName=this.value)'>
+                <div>Email:</div>
+                <input type='text' onchange='(inputEmail=this.value)'>
+                <button onclick='updateView("home"),console.log("name: ", inputName, " email: ", inputEmail)'>Submit info</button>
+                `;
+            } else if (page === "home") {
+                return /*HTML*/`
+                <div>Name: ${inputName}</div>
+                <div>Email: ${inputEmail}</div>
+                <button onclick='updateView("edit"),console.log("name: ", inputName, " email: ", inputEmail)'>Edit info</button>
+                `;
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>

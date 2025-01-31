@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>128 J</title>
+    <style>
+        div {
+            color: blue;
+            background-color: lightblue;
+            padding: 10px;
+            margin: 10px;
+            border: solid green 2px;
+            width: 30px;
+            height: 30px;
+            float: left;
+        }
+
+        div.first {
+            clear: left;
+        }
+    </style>
+</head>
+
+<body>
+    <p id="app">
+    <h2 id="message"></h2>
+    </p>
+
+    <script>
+        getBoardHTML("r1k1", "class='first'", "onclick=moveSquare(this,'r1k2','r2k1','r2k1','r2k1')", 7);
+        getBoardHTML("r1k2", "", "onclick=moveSquare(this,'r1k1','r1k3','r2k2','r2k2')", 1);
+        getBoardHTML("r1k3", "", "onclick=moveSquare(this,'r1k2','r2k3','r2k3','r2k3')", 2);
+
+        getBoardHTML("r2k1", "class='first'", "onclick=moveSquare(this,'r1k1','r2k2','r3k1','r3k1')", 5);
+        getBoardHTML("r2k2", "", "onclick=moveSquare(this,'r1k2','r2k1','r2k3','r3k2')", "");
+        getBoardHTML("r2k3", "", "onclick=moveSquare(this,'r1k3','r2k2','r3k3','r3k3')", 3);
+
+        getBoardHTML("r3k1", "class='first'", "onclick=moveSquare(this,'r2k1','r3k2','r3k2','r3k2')", 8);
+        getBoardHTML("r3k2", "", "onclick=moveSquare(this,'r2k2','r3k1','r3k3','r3k3')", 4);
+        getBoardHTML("r3k3", "", "onclick=moveSquare(this,'r2k3','r3k2','r3k2','r3k2')", 6);
+
+        function getBoardHTML(idName, className, onClick, divValue) {
+            document.getElementById("app").innerHTML += /*HTML*/`
+            <div id=${idName} ${className} ${onClick}>${divValue}</div>
+            `;
+        }
+
+        function moveSquare(tagElement, alt1, alt2, alt3, alt4) {
+            if (document.getElementById(alt1).innerHTML == '') {
+                document.getElementById(alt1).innerHTML = tagElement.innerHTML;
+                tagElement.innerHTML = '';
+            }
+            if (document.getElementById(alt2).innerHTML == '') {
+                document.getElementById(alt2).innerHTML = tagElement.innerHTML;
+                tagElement.innerHTML = '';
+            }
+            if (document.getElementById(alt3).innerHTML == '') {
+                document.getElementById(alt3).innerHTML = tagElement.innerHTML;
+                tagElement.innerHTML = '';
+            }
+            if (document.getElementById(alt4).innerHTML == '') {
+                document.getElementById(alt4).innerHTML = tagElement.innerHTML;
+                tagElement.innerHTML = '';
+            };
+            checkWinCondition();
+        }
+
+        function checkWinCondition() {
+            let currentBoard = [];
+            let winCondition = [1,2,3,4,5,6,7,8,''];
+            for (let index1 = 1; index1 < 4; index1++) {
+                for (let index2 = 1; index2 < 4; index2++) {
+                    let id = "r" + index1 + "k" + index2;
+                        currentBoard.push(document.getElementById(id).innerHTML)
+                }
+            }
+            if (currentBoard.toString() === winCondition.toString()) {
+                document.getElementById("message").innerHTML = "You win!"
+            }
+        }
+    </script>
+</body>
+
+</html>

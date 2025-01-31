@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <style>
+        select {
+            height: 25px;
+            width: 75px;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        button {
+            height: 25px;
+            margin: 5px;
+        }
+
+        div {
+            width: fit-content;
+        }
+    </style>
+    <title>141 C</title>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        // Model
+        let divColor = "";
+        let textColor = "";
+
+        // View
+        updateView();
+        function updateView() {
+            document.getElementById("app").innerHTML = /*HTML*/`
+            <div>Background color:</div>
+            ${getSelectHTML("div")}
+            <div>Text color:</div>
+            ${getSelectHTML("text")}
+            <br/>
+            <button onclick="addDiv()">Add div with colors</button><br/>
+            `;
+        }
+
+        // Controller
+        function addDiv() {
+            if (divColor != "" && textColor != "") {
+                document.getElementById("app").innerHTML += /*HTML*/`
+            <div style="background-color: ${divColor}; color: ${textColor}; padding: 5px;">
+                - Div with ${divColor} background, and ${textColor} text -</div>
+            `;
+            }
+        }
+
+        function getSelectHTML(type) {
+            return /*HTML*/`
+            <select id="${type}Color" onchange="(${type}Color = this.value)">
+                <option></option>
+                <option value="red">Red</option>
+                <option value="blue">Blue</option>
+                <option value="yellow">Yellow</option>
+                <option value="green">Green</option>
+                <option value="black">Black</option>
+                <option value="white">White</option>
+            </select>
+            `;
+        }
+
+    </script>
+</body>
+
+</html>
