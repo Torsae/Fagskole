@@ -1,12 +1,7 @@
-updateview();
-
-function layout(input) {
-    document.getElementById('cards').classList.value = '';
-    if (input != '') {
-        document.getElementById('cards').classList.add(input);
-    }
+function setLayout(input) {
+    layout = input;
+    updateView();
 }
-
 
 function showTools() {
     blankAll();

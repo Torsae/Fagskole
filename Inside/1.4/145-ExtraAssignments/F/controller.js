@@ -81,11 +81,11 @@ function incorrectGuess() {
 
 function printLetterUsed(input) {
     console.log(lettersUsed);
-    lettersRemaining = lettersRemaining.filter(function (element) {
-        return element !== input;
-    })
     if (!lettersUsed.includes(input)) {
         lettersUsed += (input + ", ");
+        lettersRemaining = lettersRemaining.filter(function (element) {
+            return element !== input;
+        })
     }
     console.log(lettersUsed);
     console.log("Remaining Letters:", lettersRemaining);

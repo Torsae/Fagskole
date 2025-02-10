@@ -1,21 +1,21 @@
-function updateview() {
+function updateView() {
     document.getElementById("app").innerHTML = /*HTML*/`
         <div>
-            <button onclick="layout('')">
+            <button onclick="setLayout('')">
                 Ingen layout
             </button>
-            <button onclick="layout('vertical')">
+            <button onclick="setLayout('vertical')">
                 Vertikal layout
             </button>
-            <button onclick="layout('horizontal')">
+            <button onclick="setLayout('horizontal')">
                 Horisontal layout
             </button>
-            <button onclick="layout('vertical')">
+            <button onclick="setLayout('vertical')">
                 Grid layout
             </button>
         </div>
         <h1>Eksempel 1</h1>
-        <div id="cards">
+        <div id="cards" class="${layout}">
             <div class="card">
                 <div class="header green" onclick="showTools()">
                     Verktøy
