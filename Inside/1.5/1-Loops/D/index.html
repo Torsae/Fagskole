@@ -4,7 +4,7 @@
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content="width=device-width, initial-scale=1.0">
-    <title>151 C</title>
+    <title>151 D</title>
 </head>
 
 <body onload="updateView()">
@@ -17,15 +17,19 @@
         // VIEW
         function updateView() {
             document.getElementById("app").innerHTML = /*HTML*/`
-                <input type='text' onchange=printReverseText(this.value)>
-                <div>Reversed Text:</div>
+                <input type='text' onchange=printAmountOfLetterA(this.value)>
+                <div>Amount of the letter 'a' in input :</div>
                 <div>${result}</div>
             `;
         }
 
         // CONTROLLER
-        function printReverseText(input) {
-            result = input.split('').reverse().join('');
+        function printAmountOfLetterA(userInput) {
+            if (!isNaN(userInput)) {
+                result = 0;
+            } else {
+                result = userInput.match(/a/g).length;
+            }
             updateView();
         }
 
