@@ -3,9 +3,35 @@ function setLayout(input) {
     updateView();
 }
 
+function getCard(color, type) {
+    let showType = 'show' + type + '()';
+    let id = 'card' + type;
+    return /*HTML*/`
+        <div class="card">
+            <div class="header ${color}" onclick="${showType}">
+                ${type}
+            </div>
+            <div id="${id}">${getDivType(type)}</div>
+        </div>
+    `;
+}
+
+function getDivType(type) {
+    if (type == "Tools") {
+        return toolsDiv;
+    } else if (type == "Html") {
+        return htmlDiv;
+    } else if (type == "Css") {
+        return cssDiv;
+    } else if (type == "JavaScript") {
+        return javaScriptDiv;
+    }
+}
+
+
 function showTools() {
     blankAll();
-    document.getElementById('cardTools').innerHTML = /*html*/`
+    toolsDiv = /*html*/`
         <div class="innerCard">
         De to viktigste verktøyene vi skal bruke er disse:
             <ul>
@@ -23,11 +49,12 @@ function showTools() {
             </ul>        
         </div>
     `;
+    updateView();
 }
 
 function showHtml() {
     blankAll();
-    document.getElementById('cardHtml').innerHTML = /*html*/`
+    htmlDiv = /*html*/`
         <div class="innerCard">
             Vi bruker HTML til å definere et dokument.
             <ul>
@@ -43,11 +70,12 @@ function showHtml() {
             </ul>
         </div>
     `;
+    updateView();
 }
 
 function showCss() {
     blankAll();
-    document.getElementById('cardCss').innerHTML = /*html*/`
+    cssDiv = /*html*/`
         <div class="innerCard">
             Vi bruker CSS til å <i>style</i> et dokument, altså farger, fonter, utseende og lignende.
             <ul>
@@ -67,11 +95,12 @@ function showCss() {
             </ul>
         </div>
     `;
+    updateView();
 }
 
 function showJavaScript() {
     blankAll();
-    document.getElementById('cardJavaScript').innerHTML = /*html*/`
+    javaScriptDiv = /*html*/`
         <div class="innerCard">
             Det viktigste vi skal lære er programmeringsspråket JavaScript. Vi skal lære grunnleggende programmering
             ved
@@ -84,7 +113,8 @@ function showJavaScript() {
             
             </ul>
         </div>
-        `;
+    `;
+    updateView();
 }
 
 function showBodyGame() {
@@ -94,41 +124,50 @@ function showBodyGame() {
         <div id="body" class="bodyPart"></div>
         <div id="legs" class="bodyPart"></div>
     `;
-    selectPart(0, "head");
-    selectPart(0, "body");
-    selectPart(0, "legs");
+    setNewPart(0, "head");
+    setNewPart(0, "body");
+    setNewPart(0, "legs");
 }
 
 function blankAll() {
-    document.getElementById('cardTools').innerHTML = '';
-    document.getElementById('cardCss').innerHTML = '';
-    document.getElementById('cardHtml').innerHTML = '';
-    document.getElementById('cardJavaScript').innerHTML = '';
+    toolsDiv = '';
+    cssDiv = '';
+    htmlDiv = '';
+    javaScriptDiv = '';
     document.getElementById('cardGame').innerHTML = '';
+    updateView();
 }
 
-function selectPart(input, type) {
-    let currentPart = 0;
+function setNewPart(input, type) {
+    let newPart = type + getPartImgIndex(input, type) + ".png";
+    document.getElementById(type).innerHTML = /*HTML*/`
+        <button onclick="setNewPart(-1, '${type}')">◀</button>
+        <img src="${'img/' + newPart}" />
+        <button onclick="setNewPart(1, '${type}')">▶</button>
+    `;
+}
+
+function getPartHTML(newPart, type) {
+    return /*HTML*/`
+        <button onclick="changePart(-1, '${type}')">◀</button>
+        <img src="${'img/' + newPart}" />
+        <button onclick="changePart(1, '${type}')">▶</button>
+    `;
+}
+
+function getPartImgIndex(input, type) {
+    // returns value 0-3 to get correct img path
     if (type === "head") {
         if (currentHead + input < 0) { input = 3 }
         currentHead = ((currentHead += input) % 4);
-        currentPart = currentHead;
+        return currentHead;
     } else if (type === "body") {
         if (currentBody + input < 0) { input = 3 }
         currentBody = ((currentLegs += input) % 4);
-        currentPart = currentBody;
+        return currentBody;
     } else if (type === "legs") {
         if (currentLegs + input < 0) { input = 3 }
         currentLegs = ((currentLegs += input) % 4);
-        currentPart = currentLegs;
+        return currentLegs;
     }
-    let newPart = type + currentPart + ".png";
-    let onClick = (type[0].toUpperCase() + type.slice(1));
-    console.log(newPart);
-    console.log("onClick:", onClick);
-    document.getElementById(type).innerHTML = /*HTML*/`
-        <button onclick="selectPart(-1, '${type}')">◀</button>
-        <img src="${'img/' + newPart}" />
-        <button onclick="selectPart(1, '${type}')">▶</button>
-    `;
 }
