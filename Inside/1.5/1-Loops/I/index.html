@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <title>151 H</title>
+</head>
+
+<body onload="drawShape()">
+    <pre id="output"></pre>
+
+    <script>
+        // MODEL
+        let drawing = [
+            '#', '', '', '', '', '', '', '', '', '', '', '', '', '#', '\n',
+            '', '#', '#', '', '', '', '', '', '', '', '', '#', '#', '', '\n',
+            '', '', '#', '#', '#', '', '', '', '', '#', '#', '#', '', '', '\n',
+            '', '', '', '#', '#', '#', '#', '#', '#', '#', '#', '', '', '', '\n',
+            '', '', '', '#', '#', '#', '#', '#', '#', '#', '#', '', '', '', '\n',
+            '', '', '#', '#', '#', '', '', '', '', '#', '#', '#', '', '', '\n',
+            '', '#', '#', '', '', '', '', '', '', '', '', '#', '#', '', '\n',
+            '#', '', '', '', '', '', '', '', '', '', '', '', '', '#',
+        ]
+
+        // VIEW
+
+        // CONTROLLER
+        function drawShape() {
+            for (let index = 0; index < drawing.length; index++) {
+                const element = drawing[index];
+                if (element == '#') {
+                    writeHash();
+                } else if (element == '') {
+                    writeSpace();
+                } else if (element == '\n') {
+                    writeLineBreak();
+                }
+            }
+        }
+
+        function writeHash() {
+            document.getElementById('output').innerText += '#';
+        }
+
+        function writeSpace() {
+            document.getElementById('output').innerText += ' ';
+        }
+
+        function writeLineBreak() {
+            document.getElementById('output').innerText += '\n';
+        }
+
+    </script>
+
+</body>
+
+</html>

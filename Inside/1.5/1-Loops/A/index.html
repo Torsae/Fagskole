@@ -1,23 +1,40 @@
-<!-- index.html  -->
 <!DOCTYPE html>
 <html lang='en'>
 
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content="width=device-width, initial-scale=1.0">
-    <!-- CSS Reference  -->
-    <link rel='stylesheet' href='style.css' />
     <title>151 A</title>
 </head>
 
-<body>
-    <!-- HTML -->
+<body onload="updateView()">
     <div id='app'></div>
 
-    <!-- JavaScript Source -->
-    <script src='model.js'></script>
-    <script src='view.js'></script>
-    <script src='controller.js'></script>
+    <script>
+        // MODEL
+
+        // VIEW
+        function updateView() {
+            document.getElementById("app").innerHTML = /*HTML*/`
+            <input type='text' id='textInput'>
+            <input type='number' id='numberInput'>
+            <button onclick='multiplyText(textInput.value, numberInput.valueAsNumber)'>Multiply Text</button>
+            <div id="errorMessage"></div>
+            `;
+        }
+
+        // CONTROLLER
+        function multiplyText(text, maxLength) {
+            let errorMessage = document.getElementById("errorMessage");
+            if (text.length >= maxLength) {
+                errorMessage.innerHTML = "Error: new length >= max length";
+            } else {
+                errorMessage.innerHTML = "";
+                document.getElementById("textInput").value = (text + text).substring(0, maxLength);
+            }
+        }
+
+    </script>
 </body>
 
 </html>

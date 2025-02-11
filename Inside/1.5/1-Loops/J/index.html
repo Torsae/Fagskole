@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <title>151 H</title>
+</head>
+
+<body onload="updateView()">
+    <div id="app"></div>
+
+    <script>
+        // MODEL
+        let wordCount = '';
+        let longestWord = '';
+        let mostVowels = '';
+
+        // VIEW
+        function updateView() {
+            document.getElementById("app").innerHTML = /*HTML*/`
+            <input type='text' onchange=printInfo(this.value)>
+            <div>Word count: ${wordCount}</div><br/>
+            <div>Longest word: ${longestWord}</div><br/>
+            <div>Most vowels: ${mostVowels}</div>
+            `;
+        }
+
+        // CONTROLLER
+        function printInfo(userInput) {
+            wordCount = getWordCount(userInput);
+            longestWord = getLongestWord(userInput);
+            mostVowels = getMostVowels(userInput);
+            updateView();
+        }
+
+        function getWordCount(userInput) {
+            return userInput.split(' ').length;
+        }
+
+        function getLongestWord(userInput) {
+            let words = userInput.split(" ");
+            let longest = 0;
+            let word = '';
+            for (let index = 0; index < words.length; index++) {
+                const element = words[index];
+                if (longest < element.length) {
+                    longest = element.length;
+                    word = element;
+                }
+            }
+            return word;
+        }
+
+        function getMostVowels(userInput) {
+            let words = userInput.split(" ");
+            let vowelCount = 0;
+            let word = '';
+            for (let index = 0; index < words.length; index++) {
+                const element = words[index];
+                if (vowelCount < element.match(/[aeiouyæøå]/g).length) {
+                    vowelCount = element.match(/[aeiouyæøå]/g).length;
+                    word = element;
+                }
+            }
+            return word;
+        }
+
+    </script>
+
+</body>
+
+</html>

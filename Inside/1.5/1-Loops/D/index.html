@@ -18,16 +18,15 @@
         function updateView() {
             document.getElementById("app").innerHTML = /*HTML*/`
                 <input type='text' onchange=printAmountOfLetterA(this.value)>
-                <div>Amount of the letter 'a' in input :</div>
+                <div>Amount of the lowercase 'a' in input :</div>
                 <div>${result}</div>
             `;
         }
 
         // CONTROLLER
         function printAmountOfLetterA(userInput) {
-            if (!isNaN(userInput)) {
-                result = 0;
-            } else {
+            result = 0;
+            if (isNaN(userInput)) {
                 result = userInput.match(/a/g).length;
             }
             updateView();

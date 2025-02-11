@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <title>152 A</title>
+    <style>
+        #app {
+            display: flexbox;
+        }
+    </style>
+</head>
+
+<body onload="updateView()">
+    <div id="app"></div>
+
+    <script>
+        // MODEL
+        let numbersDisplayed = '';
+
+        // VIEW
+        function updateView() {
+            document.getElementById("app").innerHTML = /*HTML*/`
+            <div>Print every 7th number from 100-1000. (100-107-114 etc.)</div><br/>
+            <button onclick="printNumbers()">Print numbers:</button><br/>
+            <div>${numbersDisplayed}</div>
+            `;
+        }
+
+        // CONTROLLER
+        function printNumbers() {
+            let numbersArray = []
+            numbersDisplayed = getNumbers(numbersArray).toString();
+            numbersDisplayed = numbersDisplayed.replaceAll(",", "");
+            updateView();
+        }
+
+        function getNumbers(numbersArray) {
+            let count = 0;
+            for (let index = 100; index < 1000; index += 7) {
+                // breaks line every 10th loop
+                if (count % 10 + 1 == 1) {
+                    numbersArray.push("<br/>");
+                }
+                // adds new numbers to array with space inbetween
+                numbersArray.push(index + ' ');
+                count++
+            }
+            return numbersArray;
+        }
+        
+    </script>
+
+</body>
+
+</html>

@@ -1,23 +1,53 @@
-<!-- index.html  -->
 <!DOCTYPE html>
 <html lang='en'>
 
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content="width=device-width, initial-scale=1.0">
-    <!-- CSS Reference  -->
-    <link rel='stylesheet' href='style.css' />
     <title>151 B</title>
+    <style>
+        input {
+            max-width: 100px;
+        }
+
+        #app {
+            display: flexbox;
+            max-width: 50%;
+        }
+    </style>
 </head>
 
-<body>
-    <!-- HTML -->
+<body onload="updateView()">
     <div id='app'></div>
 
-    <!-- JavaScript Source -->
-    <script src='model.js'></script>
-    <script src='view.js'></script>
-    <script src='controller.js'></script>
+    <script>
+    // MODEL
+    let result = '';
+        
+    // VIEW
+    function updateView() {
+        document.getElementById("app").innerHTML = /*HTML*/`
+        <h2>All numbers from min to max using increments</h2>
+        <input type='number' id='minInput'  placeholder="Min">
+        <input type='number' id='increment' placeholder="Increment">
+        <input type='number' id='maxInput'  placeholder="Max">
+        <button onclick='printNumbers(parseInt(minInput.value), parseInt(increment.value), parseInt(maxInput.value))'>Print numbers</button><br/>
+        ${result}
+        `;
+    }
+
+    // CONTROLLER
+    function printNumbers(min, increment, max) {
+        result = '';
+        for (let currentNumb = min; currentNumb <= max; currentNumb += increment) {
+            result += (currentNumb + ', ');
+            console.log(currentNumb);
+        }
+        updateView();
+    }
+
+    </script>
+
 </body>
 
 </html>

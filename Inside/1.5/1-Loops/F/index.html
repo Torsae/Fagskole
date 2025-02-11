@@ -17,17 +17,22 @@
         // VIEW
         function updateView() {
             document.getElementById("app").innerHTML = /*HTML*/`
-                <input type='text' onchange=countLetterA(this.value)>
-                <div>Amount of 'A/a' in input :</div>
+                <input type='text' id='words' placeholder='Type a word'>
+                <input type='text' id="letter" maxlength='1' placeholder='Look for x in word'>
+                <button onclick='printAmountOfLetter(words.value, letter.value)'>Print amount of X in input</button>
+                <div>X in input :</div>
                 <div>${result}</div>
             `;
         }
 
         // CONTROLLER
-        function countLetterA(userInput) {
+        function printAmountOfLetter(userInput, letter) {
             result = 0;
-            if (isNaN(userInput)) {
-                result += userInput.toUpperCase().match(/A/g).length;
+            for (let index = 0; index < userInput.length; index++) {
+                const element = userInput[index];
+                if (element === letter) {
+                    result++;
+                }
             }
             updateView();
         }
