@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <title>152 B</title>
+</head>
+
+<body onload="updateView()">
+    <div id="app"></div>
+
+    <script>
+        // MODEL
+        let numbersInArray = [];
+        let sumOfArrayDisplayed = '';
+
+        // VIEW
+        function updateView() {
+            document.getElementById("app").innerHTML = /*HTML*/`
+            <div>Print sum of random numbers in array (1-10 numbers and values of 1-100).</div><br/>
+            <button onclick="printNumbers([])">Print numbers:</button><br/><br/>
+            <div>Numbers in array: ${numbersInArray}</div>
+            <div>Sum of array: ${sumOfArrayDisplayed}</div>
+            `;
+        }
+
+        // CONTROLLER
+        function printNumbers(randomNumbArray) {
+            numbersInArray = [];
+            sumOfArrayDisplayed = getSumOfArray(randomNumbArray);
+            updateView();
+        }
+
+        function getSumOfArray(randomNumbArray) {
+            let result = 0;
+            randomNumbArray = getRandomNumbers(randomNumbArray);
+            randomNumbArray.map(function (element) {
+                numbersInArray.push(' ' + element);
+                result += element;
+            })
+            return result;
+        }
+
+        function getRandomNumbers(randomNumbArray) {
+            let loopLength = Math.floor(Math.random() * 10)
+            for (let index = 0; index < loopLength; index++) {
+                randomNumbArray.push(Math.floor(Math.random() * 100));
+            }
+            return randomNumbArray;
+        }
+
+    </script>
+
+</body>
+
+</html>

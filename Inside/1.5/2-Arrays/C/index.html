@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <title>152 C</title>
+</head>
+
+<body onload="updateView()">
+    <div id="app"></div>
+
+    <script>
+        // MODEL
+        let numbersInArray = [];
+        let sumOfArrayDisplayed = '';
+
+        // VIEW
+        function updateView() {
+            document.getElementById("app").innerHTML = /*HTML*/`
+            ${createGridDivs(3)}
+            `;
+        }
+
+        // CONTROLLER
+        function createGridDivs(sqrt) {
+            let divsInGrid = '';
+            for (let index = 0; index < sqrt; index++) {
+                divsInGrid += /*HTML*/`
+                <div></div>
+                `;
+            }
+            return 
+        }
+
+    </script>
+
+</body>
+
+</html>
