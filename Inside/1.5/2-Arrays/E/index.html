@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <title>152 E</title>
+</head>
+
+<body onload="updateView()">
+    <div id="app"></div>
+
+    <script>
+        // MODEL
+        let displayedNumbers = [0, 2, 3, 5, 7, 10];
+        let displayedNumbers2 = [0, 2, 10, 3, 7, 5];
+
+        // VIEW
+        function updateView() {
+            document.getElementById("app").innerHTML = /*HTML*/`
+            <div class="container">
+                [ ${displayedNumbers} ] is sorted: ${isArraySorted(displayedNumbers)}<br/> 
+                [ ${displayedNumbers2} ] is sorted: ${isArraySorted(displayedNumbers2)}
+            </div><br/>
+            `;
+        }
+
+        // CONTROLLER
+        function isArraySorted(numbers) {
+            let sorted = true;
+            for (let index = 0; index < numbers.length - 1; index++) {
+                const element = numbers[index];
+                if (element > numbers[index + 1]) {
+                    sorted = false;
+                    break;
+                }
+            }
+            return sorted;
+        }
+
+    </script>
+
+</body>
+
+</html>

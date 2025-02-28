@@ -4,6 +4,25 @@
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <style>
+        .gridContainer {
+            display: grid;
+            max-width: fit-content;
+            grid-template-columns: repeat(3, auto);
+            grid-template-rows: repeat(3, auto);
+        }
+
+        .gridNumb {
+            width: 25px;
+            height: 25px;
+            align-content: center;
+            text-align: center;
+            padding: 5px;
+            margin: 3px;
+            background-color: lightsteelblue;
+            border: solid darkcyan 2px;
+        }
+    </style>
     <title>152 C</title>
 </head>
 
@@ -12,25 +31,47 @@
 
     <script>
         // MODEL
-        let numbersInArray = [];
-        let sumOfArrayDisplayed = '';
+        // includes ' ' to make it easier to draw blank in grid
+        let numbers = [1, 2, 5, 7, ' ', 3, 4, 8, 6];
 
         // VIEW
         function updateView() {
             document.getElementById("app").innerHTML = /*HTML*/`
-            ${createGridDivs(3)}
+            <div class="gridContainer">
+                ${createGridDivs()}
+            </div>
             `;
         }
 
         // CONTROLLER
-        function createGridDivs(sqrt) {
+        function createGridDivs() {
             let divsInGrid = '';
-            for (let index = 0; index < sqrt; index++) {
+            for (let index = 0; index < numbers.length; index++) {
+                const element = numbers[index];
                 divsInGrid += /*HTML*/`
-                <div></div>
+                <div class="gridNumb" onclick="moveNumber(${element})">${element}</div>
                 `;
             }
-            return 
+            return divsInGrid;
+        }
+
+        function moveNumber(chosenNumber) {
+            let blankSpace = numbers.indexOf(' ');
+            let chosenIndex = numbers.indexOf(chosenNumber);
+            if (isValidMove(blankSpace, chosenIndex)) {
+                numbers[chosenIndex] = ' ';
+                numbers[blankSpace] = chosenNumber;
+                updateView();
+            }
+        }
+
+        function isValidMove(blankSpace, chosenIndex) {
+            if (blankSpace == chosenIndex - 1 || blankSpace == chosenIndex + 1 ||
+                blankSpace == chosenIndex - 3 || blankSpace == chosenIndex + 3) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
     </script>

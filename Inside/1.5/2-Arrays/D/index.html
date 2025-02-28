@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content="width=device-width, initial-scale=1.0">
+    <title>152 D</title>
+</head>
+
+<body onload="updateView()">
+    <div id="app"></div>
+
+    <script>
+        // MODEL
+        let result = "";
+
+        // VIEW
+        function updateView() {
+            document.getElementById("app").innerHTML = /*HTML*/`
+            <div class="areaContainer">
+                <textarea id="userText" placeholder='hallo majones tryne hallo tryne tryne'></textarea>
+            </div>
+            <div>Count times each word was used:</div>
+            <button onclick='countWords(userText.value)'>Count</button><br/><br/>
+            <div>${result}</div>
+            `;
+        }
+
+        // CONTROLLER
+        function countWords(userText) {
+            console.log(userText);
+            userText = userText.replace(/[^a-zA-Z0-9 ]/g, "")
+            console.log(userText);
+            userText = userText.split(' ');
+            let words = [];
+            let wordCount = [];
+            userText.map(function (element) {
+                if (words.includes(element)) {
+                    console.log("Duplicate word:", element);
+                    wordCount[words.indexOf(element)] += 1;
+                } else {
+                    console.log("New word:", element);
+                    words.push(element);
+                    wordCount.push(1);
+                    console.log("Words:", words);
+                }
+            });
+
+            for (let index = 0; index < words.length; index++) {
+                const element = words[index];
+                console.log(element, " : ", wordCount[index]);
+                result += (element + " : " + wordCount[index] + "<br/>");
+            }
+            // words.map(function (element) {
+            //     console.log("Word:", element);
+            //     console.log("Times used:", wordCount[words.indexOf(element)]);
+            // });
+            updateView();
+        }
+
+    </script>
+
+</body>
+
+</html>
